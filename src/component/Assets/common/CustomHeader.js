@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Appearance} from 'react-native';
 import styles, {
   black_color,
   borderColor,
   fontBold,
   fontmedum,
   hp,
+  white_color,
   wp,
 } from '../style/styles';
+
+const colorScheme = Appearance.getColorScheme();
 
 const CustomHeader = ({
   width,
@@ -31,7 +34,10 @@ const CustomHeader = ({
           justifyContent: 'space-between',
           paddingHorizontal: wp(3),
           position: 'relative',
-          backgroundColor: backgroundColor ? backgroundColor : '#fff',
+          backgroundColor: {
+            backgroundColor:
+              colorScheme === 'light' ? black_color : white_color,
+          },
           borderBottomWidth: wp(0.2),
           borderColor: borderColor,
         }}>
@@ -60,7 +66,7 @@ const CustomHeader = ({
             }}
           />
         )}
-      </View> 
+      </View>
       <View
         style={{
           width: wp(100),

@@ -227,16 +227,15 @@ const styles = StyleSheet.create({
     fontSize: wp(5),
     color: black_color,
   },
-  view_92:{
+  view_92: {
     width: wp(92),
     alignSelf: 'center',
   },
- container: {
+  container: {
     flex: 1,
-    backgroundColor: white_color,
   },
   ////////////////////////App/////////////
- 
+
   //NEWS
   header_right_view: {
     flexDirection: 'row',
@@ -276,16 +275,16 @@ const styles = StyleSheet.create({
   },
   image_detail: {
     width: wp(100),
-    height: hp(70),
+    height: hp(65),
   },
   sec_detail_view_1: {
     flex: 1,
     backgroundColor: white_color,
-    marginTop: hp(-6),
-    borderTopRightRadius: hp(5),
-    borderTopLeftRadius: hp(5),
+    marginTop: hp(-7),
+    borderTopRightRadius: hp(7),
+    borderTopLeftRadius: hp(7),
   },
-  sec_detail_view_2:{
+  sec_detail_view_2: {
     flexDirection: 'row',
     width: wp(85),
     alignSelf: 'center',
@@ -293,15 +292,62 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     marginVertical: hp(2),
   },
-  sec_detail_date:{
+  sec_detail_view_3: {
+    alignSelf: 'center',
+    borderTopRightRadius: hp(7),
+    borderTopLeftRadius: hp(7),
+    width: wp(92),
+  },
+  sec_detail_date: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  sec_detail_editor:{
+  sec_detail_editor: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
+  //SETTING
+  sec_lang_View_1: {
+    height: hp(10),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: hp(5),
+  },
+  sec_lang_View_2: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  sec_lang_View_3: {
+    width: hp(11),
+    height: hp(6),
+    borderRadius: hp(2),
+    backgroundColor: bluesky_color,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+  sec_lang_View_4: {
+    width: hp(3.5),
+    height: hp(4),
+    borderRadius: hp(1),
+    backgroundColor: '#fff',
+    alignSelf: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
+  sec_lang_View_5: {
+    width: hp(3.5),
+    height: hp(4),
+    borderRadius: hp(1),
+    backgroundColor: '#941e71',
+    alignSelf: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
 });
 export default styles;

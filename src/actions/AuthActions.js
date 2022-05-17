@@ -1,10 +1,10 @@
-import {GET_DATA, GET_DATA_SUCCESS} from './types';
+import { GET_DATA, GET_DATA_SUCCESS } from './types';
 import axios from 'axios';
-import {baseUrl} from '../Config';
+import { baseUrl } from '../Config';
 
 export const _getData = () => {
-  return dispatch => {
-    dispatch({type: GET_DATA});
+  return async  dispatch => {
+    dispatch({ type: GET_DATA });
     axios
       .get(baseUrl)
       .then(function (response) {
@@ -15,8 +15,8 @@ export const _getData = () => {
       });
   };
 };
-
 const getDataSucc = (dispatch, data) => {
+  
   dispatch({
     type: GET_DATA_SUCCESS,
     payload: data,

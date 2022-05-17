@@ -6,49 +6,55 @@ import {
   StatusBar,
   FlatList,
   TouchableOpacity,
-  ScrollView,
   RefreshControl,
+  Appearance,
 } from 'react-native';
-import styles, {black_color, white_color, wp} from './Assets/style/styles';
+import styles, {white_color, black_color, wp} from './Assets/style/styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {CustomHeader} from './Assets/common/CustomHeader';
-
+import {Input} from './Assets/common/Inout';
 import {connect} from 'react-redux';
 import {_getData} from '../actions';
+import {L} from '../Config';
+
+const colorScheme = Appearance.getColorScheme();
+const colorSchemeView = colorScheme == 'light' ? white_color : black_color;
+const colorSchemeText = colorScheme == 'light' ? black_color : white_color;
 
 class News extends Component {
   constructor(props) {
-    const {_getData} = props;
     super(props);
     this.state = {
+      isLoading: true,
+      search: false,
+      TextSearch: null,
+      NewsData: [],
       refreshing: false,
+      resolve: null,
     };
-    _getData();
+    this.props._getData();
   }
 
-  onRefresh = () => {
-    this.setState({refreshing: true});
-    _getData.then(() => {
-      this.setState({refreshing: false});
-    });
-  };
-
   renderNews = ({item, index}) => {
-    const ShortDetail = item.description.split('', 40);
+    const ShortDetail = item?.description?.split('', 40);
     return (
       <TouchableOpacity
         activeOpacity={0.9}
         onPress={() => this.props.navigation.navigate('NewsDetails', item)}>
-        <View key={index} style={styles.sec_news_card}>
+        <View
+          key={index}
+          style={[styles.sec_news_card, {backgroundColor: colorSchemeView}]}>
           <Image
             source={{uri: item?.urlToImage}}
             resizeMode={'cover'}
             style={styles.image_news}
           />
           <View style={styles.sec_title}>
-            <Text style={styles.bold_black_text_3}>{item?.title}</Text>
-            <Text style={styles.light_black_text_2}>
+            <Text style={{...styles.bold_black_text_3, color: colorSchemeText}}>
+              {item?.title}
+            </Text>
+            <Text style={[styles.light_black_text_2, {color: colorSchemeText}]}>
               {ShortDetail}
               {'...'}
             </Text>
@@ -58,43 +64,99 @@ class News extends Component {
     );
   };
 
+  Refresh = () => {
+    const {refreshing} = this.state;
+    const wait = timeout => {
+      return new Promise(resolve => setTimeout(resolve, timeout));
+    };
+    const onRefresh = () => {
+      this.setState({refreshing: true});
+      this.props._getData();
+      wait(1000).then(() => this.setState({refreshing: false}));
+    };
+    return (
+      <RefreshControl
+        refreshing={refreshing}
+        onRefresh={onRefresh.bind(this)}
+      />
+    );
+  };
+
   render() {
     // STATE:
-    const {refreshing} = this.state;
+    const {refreshing, search, TextSearch, NewsData} = this.state;
     // PROPS:
     const {data} = this.props;
     // OTHER
+    // console.log(NewsData);
 
     return (
-      <View style={styles.container}>
+      <View style={{flex: 1, backgroundColor: colorSchemeView}}>
         <StatusBar
           animated={true}
-          backgroundColor={white_color}
-          barStyle={'dark-content'}
+          backgroundColor={colorSchemeView}
+          barStyle={colorScheme === 'light' ? 'dark-content' : 'light-content'}
         />
-        <CustomHeader
-          left={<MaterialIcons name="menu" size={wp(5)} color={black_color} />}
-          screen_name={'NEWS'}
-          right={
-            <View style={styles.header_right_view}>
-              <MaterialCommunityIcons
-                name="filter"
-                size={wp(5)}
-                color={black_color}
-              />
-              <MaterialIcons name="language" size={wp(5)} color={black_color} />
-              <MaterialIcons name="search" size={wp(5)} color={black_color} />
-            </View>
-          }
-        />
+
+        {search == false ? (
+          <CustomHeader
+            left={
+              <MaterialIcons name="menu" size={wp(5)} color={colorSchemeText} />
+            }
+            screen_name={L('news')}
+            color={colorSchemeText}
+            right={
+              <View style={styles.header_right_view}>
+                <MaterialCommunityIcons
+                  name="filter"
+                  size={wp(5)}
+                  color={colorSchemeText}
+                />
+                <MaterialIcons
+                  name="language"
+                  size={wp(5)}
+                  color={colorSchemeText}
+                />
+                <TouchableOpacity
+                  onPress={() => this.setState({search: !search})}>
+                  <MaterialIcons
+                    name="search"
+                    size={wp(5)}
+                    color={{backgroundColor: colorSchemeText}}
+                  />
+                </TouchableOpacity>
+              </View>
+            }
+          />
+        ) : (
+          <Input
+            left={
+              <TouchableOpacity
+                onPress={() =>
+                  this.setState({search: !search, TextSearch: null})
+                }>
+                <MaterialIcons
+                  name="close"
+                  size={wp(5)}
+                  color={{backgroundColor: colorSchemeText}}
+                />
+              </TouchableOpacity>
+            }
+            onChangeText={TextSearch => this.searchFilterFunction({TextSearch})}
+            value={TextSearch}
+            placeholder={L('search')}
+            keyboardType="numeric"
+            placeholderTextColor={colorSchemeText}
+            colorText={colorSchemeText}
+          />
+        )}
 
         <FlatList
           data={data}
           showsVerticalScrollIndicator={false}
           renderItem={this.renderNews}
           keyExtractor={(item, index) => index.toString()}
-          refreshing={refreshing}
-          onRefresh={this.onRefresh}
+          refreshControl={this.Refresh()}
         />
       </View>
     );
@@ -103,6 +165,7 @@ class News extends Component {
 
 const mapStateToProps = ({auth}) => {
   const {data} = auth;
+
   return {data};
 };
 

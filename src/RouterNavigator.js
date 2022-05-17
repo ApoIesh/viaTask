@@ -1,4 +1,5 @@
 import React from 'react';
+import {Appearance} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -8,10 +9,16 @@ import News from './component/News';
 import Home from './component/Home';
 import NewsDetails from './component/NewsDetails';
 import Settings from './component/Settings';
-import { Secondary_color } from './component/Assets/style/styles';
+import {
+  black_color,
+  Secondary_color,
+  white_color,
+} from './component/Assets/style/styles';
+import {L} from './Config';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const colorScheme = Appearance.getColorScheme();
 
 function TabComponent() {
   return (
@@ -19,18 +26,22 @@ function TabComponent() {
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
           let iconNamee;
-          if (route.name === 'News') {
+          if (route.name === L('news')) {
             iconNamee = focused ? 'newspaper' : 'newspaper';
-          } else if (route.name === 'Settings') {
+          } else if (route.name === L('settings')) {
             iconNamee = focused ? 'settings' : 'settings';
           }
           return <Ionicons name={iconNamee} size={size} color={color} />;
         },
         tabBarActiveTintColor: Secondary_color,
         tabBarInactiveTintColor: 'gray',
+        tabBarActiveBackgroundColor:
+          colorScheme === 'light' ? white_color : black_color,
+        tabBarInactiveBackgroundColor:
+          colorScheme === 'light' ? white_color : black_color,
       })}>
       <Tab.Screen
-        name={'News'}
+        name={L('news')}
         component={News}
         options={{
           headerShown: false,
@@ -38,7 +49,7 @@ function TabComponent() {
       />
 
       <Tab.Screen
-        name={'Settings'}
+        name={L('settings')}
         component={Settings}
         options={{
           headerShown: false,

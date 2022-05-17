@@ -19,7 +19,6 @@ class App extends Component {
     return (
       <Provider store={store}>
         <NavigationContainer>
-          <StatusBar backgroundColor={'#fff'} barStyle={'dark-content'} />
           <RouterNavigator />
         </NavigationContainer>
       </Provider>
