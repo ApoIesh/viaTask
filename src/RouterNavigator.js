@@ -1,12 +1,11 @@
 import React from 'react';
-import {Appearance} from 'react-native';
+import { Appearance } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import News from './component/News';
-import Home from './component/Home';
 import NewsDetails from './component/NewsDetails';
 import Settings from './component/Settings';
 import {
@@ -14,7 +13,7 @@ import {
   Secondary_color,
   white_color,
 } from './component/Assets/style/styles';
-import {L} from './Config';
+import { L } from './Config';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -23,8 +22,8 @@ const colorScheme = Appearance.getColorScheme();
 function TabComponent() {
   return (
     <Tab.Navigator
-      screenOptions={({route}) => ({
-        tabBarIcon: ({focused, color, size}) => {
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
           let iconNamee;
           if (route.name === L('news')) {
             iconNamee = focused ? 'newspaper' : 'newspaper';
@@ -67,7 +66,6 @@ export default function RouterNavigator() {
         headerShown: false,
       }}>
       <Stack.Screen name="TabComponent" component={TabComponent} />
-      <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="NewsDetails" component={NewsDetails} />
     </Stack.Navigator>
   );

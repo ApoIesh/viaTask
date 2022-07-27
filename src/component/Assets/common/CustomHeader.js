@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {View, Text, Appearance} from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, Appearance } from 'react-native';
 import styles, {
   black_color,
   borderColor,
@@ -92,4 +92,4 @@ const CustomHeader = ({
   );
 };
 
-export {CustomHeader};
+export { CustomHeader };

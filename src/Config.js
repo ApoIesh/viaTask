@@ -1,8 +1,7 @@
 import RNRestart from 'react-native-restart';
-import I18n, {getLanguages} from 'react-native-i18n';
-import {I18nManager} from 'react-native';
+import I18n, { getLanguages } from 'react-native-i18n';
+import { I18nManager } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 
 I18n.fallbacks = true;
 I18n.translations = {
@@ -11,7 +10,8 @@ I18n.translations = {
 };
 
 export const baseUrl =
-  'https://newsapi.org/v2/everything&apiKey=72eb1814a8374a3ea2035877ce5e5dda';
+  'https://newsapi.org/v2/everything?q=tesla&from=2022-06-27&sortBy=publishedAt&apiKey=bfe3a003c7b64a27936ecc965a2c4471';
+
 export const changeLng = async lang => {
   AsyncStorage.setItem('language', lang);
   if (lang == 'ar') {
@@ -30,7 +30,8 @@ export const changeLng = async lang => {
     }
   }
 };
+
 export function L(key, lang) {
-  let word = I18n.t(key, {locale: lang ? lang : I18n.locale});
+  let word = I18n.t(key, { locale: lang ? lang : I18n.locale });
   return word;
 }

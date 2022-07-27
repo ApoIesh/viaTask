@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -9,14 +9,18 @@ import {
   RefreshControl,
   Appearance,
 } from 'react-native';
-import styles, {white_color, black_color, wp} from './Assets/style/styles';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import styles, {
+  white_color,
+  black_color,
+  wp,
+  Secondary_color,
+} from './Assets/style/styles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {CustomHeader} from './Assets/common/CustomHeader';
-import {Input} from './Assets/common/Inout';
-import {connect} from 'react-redux';
-import {_getData} from '../actions';
-import {L} from '../Config';
+import { CustomHeader } from './Assets/common/CustomHeader';
+import { Input } from './Assets/common/Inout';
+import { connect } from 'react-redux';
+import { _getData } from '../actions';
+import { L } from '../Config';
 
 const colorScheme = Appearance.getColorScheme();
 const colorSchemeView = colorScheme == 'light' ? white_color : black_color;
@@ -36,7 +40,7 @@ class News extends Component {
     this.props._getData();
   }
 
-  renderNews = ({item, index}) => {
+  renderNews = ({ item, index }) => {
     const ShortDetail = item?.description?.split('', 40);
     return (
       <TouchableOpacity
@@ -44,17 +48,17 @@ class News extends Component {
         onPress={() => this.props.navigation.navigate('NewsDetails', item)}>
         <View
           key={index}
-          style={[styles.sec_news_card, {backgroundColor: colorSchemeView}]}>
+          style={[styles.sec_news_card, { backgroundColor: colorSchemeView }]}>
           <Image
-            source={{uri: item?.urlToImage}}
+            source={{ uri: item?.urlToImage }}
             resizeMode={'cover'}
             style={styles.image_news}
           />
           <View style={styles.sec_title}>
-            <Text style={{...styles.bold_black_text_3, color: colorSchemeText}}>
+            <Text style={{ ...styles.bold_black_text_3, color: colorSchemeText }}>
               {item?.title}
             </Text>
-            <Text style={[styles.light_black_text_2, {color: colorSchemeText}]}>
+            <Text style={[styles.light_black_text_2, { color: colorSchemeText }]}>
               {ShortDetail}
               {'...'}
             </Text>
@@ -65,14 +69,14 @@ class News extends Component {
   };
 
   Refresh = () => {
-    const {refreshing} = this.state;
+    const { refreshing } = this.state;
     const wait = timeout => {
       return new Promise(resolve => setTimeout(resolve, timeout));
     };
     const onRefresh = () => {
-      this.setState({refreshing: true});
+      this.setState({ refreshing: true });
       this.props._getData();
-      wait(1000).then(() => this.setState({refreshing: false}));
+      wait(1000).then(() => this.setState({ refreshing: false }));
     };
     return (
       <RefreshControl
@@ -84,14 +88,14 @@ class News extends Component {
 
   render() {
     // STATE:
-    const {refreshing, search, TextSearch, NewsData} = this.state;
+    const { refreshing, search, TextSearch, NewsData } = this.state;
     // PROPS:
-    const {data} = this.props;
+    const { data } = this.props;
     // OTHER
     // console.log(NewsData);
 
     return (
-      <View style={{flex: 1, backgroundColor: colorSchemeView}}>
+      <View style={{ flex: 1, backgroundColor: colorSchemeView }}>
         <StatusBar
           animated={true}
           backgroundColor={colorSchemeView}
@@ -100,49 +104,32 @@ class News extends Component {
 
         {search == false ? (
           <CustomHeader
-            left={
-              <MaterialIcons name="menu" size={wp(5)} color={colorSchemeText} />
-            }
             screen_name={L('news')}
             color={colorSchemeText}
             right={
-              <View style={styles.header_right_view}>
-                <MaterialCommunityIcons
-                  name="filter"
-                  size={wp(5)}
-                  color={colorSchemeText}
-                />
+              <TouchableOpacity
+                onPress={() => this.setState({ search: !search })}>
                 <MaterialIcons
-                  name="language"
+                  name="search"
                   size={wp(5)}
-                  color={colorSchemeText}
+                  color={Secondary_color}
                 />
-                <TouchableOpacity
-                  onPress={() => this.setState({search: !search})}>
-                  <MaterialIcons
-                    name="search"
-                    size={wp(5)}
-                    color={{backgroundColor: colorSchemeText}}
-                  />
-                </TouchableOpacity>
-              </View>
+              </TouchableOpacity>
             }
           />
         ) : (
           <Input
             left={
               <TouchableOpacity
-                onPress={() =>
-                  this.setState({search: !search, TextSearch: null})
-                }>
+                onPress={() => this.setState({ search: !search, TextSearch: null })}>
                 <MaterialIcons
                   name="close"
                   size={wp(5)}
-                  color={{backgroundColor: colorSchemeText}}
+                  color={Secondary_color}
                 />
               </TouchableOpacity>
             }
-            onChangeText={TextSearch => this.searchFilterFunction({TextSearch})}
+            onChangeText={TextSearch => this.searchFilterFunction({ TextSearch })}
             value={TextSearch}
             placeholder={L('search')}
             keyboardType="numeric"
@@ -163,10 +150,10 @@ class News extends Component {
   }
 }
 
-const mapStateToProps = ({auth}) => {
-  const {data} = auth;
+const mapStateToProps = ({ auth }) => {
+  const { data } = auth;
 
-  return {data};
+  return { data };
 };
 
 export default connect(mapStateToProps, {

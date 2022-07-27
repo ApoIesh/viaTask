@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {View, Text, Switch, Appearance, TouchableOpacity} from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, Switch, Appearance, TouchableOpacity } from 'react-native';
 import Switchtoggle from './Assets/common/Switchtoggle';
 import styles, {
   black_color,
@@ -8,7 +8,7 @@ import styles, {
   white_color,
   wp,
 } from './Assets/style/styles';
-import {changeLng, L} from '../Config';
+import { changeLng, L } from '../Config';
 
 class Settings extends Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class Settings extends Component {
   }
 
   render() {
-    const {isEnabled, Language} = this.state;
+    const { isEnabled, Language } = this.state;
 
     const colorScheme = Appearance.getColorScheme();
 
@@ -40,10 +40,10 @@ class Settings extends Component {
         }}>
         <View style={styles.view_92}>
           <Switch
-            trackColor={{false: '#767577', true: '#b35f9a'}}
+            trackColor={{ false: '#767577', true: '#b35f9a' }}
             thumbColor={isEnabled ? '#f4f3f4' : '#482796'}
             ios_backgroundColor="#3e3e3e"
-            onValueChange={() => this.setState({isEnabled: !isEnabled})}
+            onValueChange={() => this.setState({ isEnabled: !isEnabled })}
             value={isEnabled}
           />
 
@@ -62,7 +62,7 @@ class Settings extends Component {
                 <TouchableOpacity
                   activeOpacity={0.9}
                   onPress={() => {
-                    this.checkLang('en'), this.setState({Language: true});
+                    this.checkLang('en'), this.setState({ Language: true });
                   }}>
                   <View
                     style={{
@@ -82,7 +82,7 @@ class Settings extends Component {
                 <TouchableOpacity
                   activeOpacity={0.9}
                   onPress={() => {
-                    this.checkLang('ar'), this.setState({Language: false});
+                    this.checkLang('ar'), this.setState({ Language: false });
                   }}>
                   <View
                     style={{

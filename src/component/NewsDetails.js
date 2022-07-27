@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -8,11 +8,11 @@ import {
   ScrollView,
   Appearance,
 } from 'react-native';
-import {_getData} from '../actions';
-import styles, {black_color, hp, white_color, wp} from './Assets/style/styles';
+import { _getData } from '../actions';
+import styles, { black_color, hp, white_color, wp } from './Assets/style/styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {L} from '../Config';
+import { L } from '../Config';
 
 const colorScheme = Appearance.getColorScheme();
 const colorSchemeView = colorScheme == 'light' ? white_color : black_color;
@@ -27,11 +27,9 @@ class NewsDetails extends Component {
   }
 
   render() {
-    // STATE:
-    const {data} = this.state;
-    // PROPS:
-    // const {} = this.props;
-    // OTHER
+
+    const { data } = this.state;
+
     return (
       <View
         style={{
@@ -48,20 +46,20 @@ class NewsDetails extends Component {
           onPress={() => this.props.navigation.goBack()}
           size={wp(5)}
           color={colorSchemeText}
-          style={{padding: wp(3), alignSelf: 'flex-start'}}
+          style={{ padding: wp(3), alignSelf: 'flex-start' }}
         />
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text
             style={[
               styles.bold_black_text_4,
               styles.header_detail,
-              {color: colorSchemeText},
+              { color: colorSchemeText },
             ]}>
             {data?.title}
           </Text>
 
           <ImageBackground
-            source={{uri: data?.urlToImage}}
+            source={{ uri: data?.urlToImage }}
             resizeMode={'stretch'}
             borderTopLeftRadius={hp(5)}
             borderTopRightRadius={hp(5)}
@@ -84,7 +82,7 @@ class NewsDetails extends Component {
                 <View style={styles.sec_detail_date}>
                   <Ionicons
                     name="time-outline"
-                    style={{marginEnd: wp(1)}}
+                    style={{ marginEnd: wp(1) }}
                     size={wp(4)}
                     color={colorSchemeText}
                   />
@@ -114,7 +112,7 @@ class NewsDetails extends Component {
                     name="account-edit"
                     size={wp(4)}
                     color={colorSchemeText}
-                    style={{marginEnd: wp(1)}}
+                    style={{ marginEnd: wp(1) }}
                   />
                   <Text
                     style={[
@@ -137,7 +135,7 @@ class NewsDetails extends Component {
                 ]}>
                 {data?.description}
               </Text>
-              <View style={{flexDirection: 'column'}}>
+              <View style={{ flexDirection: 'column' }}>
                 <Text
                   style={[
                     styles.light_gray_text_3,
@@ -148,7 +146,7 @@ class NewsDetails extends Component {
                   {'To see more :'}
                 </Text>
                 <Text
-                  style={{...styles.bold_gray_text_3, color: 'blue'}}
+                  style={{ ...styles.bold_gray_text_3, color: 'blue' }}
                   onPress={() => Linking.openURL(data?.url)}>
                   {data?.url}
                 </Text>

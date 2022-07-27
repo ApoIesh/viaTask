@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, View, TextInput} from 'react-native';
+import { Text, StyleSheet, View, TextInput } from 'react-native';
 import {
   borderColor,
   wp,
@@ -84,4 +84,4 @@ const Input = ({
   );
 };
 
-export {Input};
+export { Input };

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { baseUrl } from '../Config';
 
 export const _getData = () => {
-  return async  dispatch => {
+  return async dispatch => {
     dispatch({ type: GET_DATA });
     axios
       .get(baseUrl)
@@ -15,8 +15,8 @@ export const _getData = () => {
       });
   };
 };
+
 const getDataSucc = (dispatch, data) => {
-  
   dispatch({
     type: GET_DATA_SUCCESS,
     payload: data,
