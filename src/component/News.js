@@ -8,12 +8,14 @@ import {
   TouchableOpacity,
   RefreshControl,
   Appearance,
+  Platform,
 } from 'react-native';
 import styles, {
   white_color,
   black_color,
   wp,
   Secondary_color,
+  hp,
 } from './Assets/style/styles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { CustomHeader } from './Assets/common/CustomHeader';
@@ -101,8 +103,10 @@ class News extends Component {
           backgroundColor={colorSchemeView}
           barStyle={colorScheme === 'light' ? 'dark-content' : 'light-content'}
         />
-
-        {search == false ? (
+<View style={{
+  marginTop:Platform.OS==="ios"?hp(3):0
+}}>
+  {search == false ? (
           <CustomHeader
             screen_name={L('news')}
             color={colorSchemeText}
@@ -137,6 +141,8 @@ class News extends Component {
             colorText={colorSchemeText}
           />
         )}
+</View>
+        
 
         <FlatList
           data={data}

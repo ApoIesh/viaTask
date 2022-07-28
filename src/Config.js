@@ -10,8 +10,7 @@ I18n.translations = {
 };
 
 export const baseUrl =
-  'https://newsapi.org/v2/everything?q=tesla&from=2022-06-27&sortBy=publishedAt&apiKey=bfe3a003c7b64a27936ecc965a2c4471';
-
+ "https://newsapi.org/v2/everything?q=apple&from=2022-07-27&to=2022-07-27&sortBy=popularity&apiKey=bfe3a003c7b64a27936ecc965a2c4471"
 export const changeLng = async lang => {
   AsyncStorage.setItem('language', lang);
   if (lang == 'ar') {
